@@ -1,0 +1,38 @@
+// Função para simular a leitura do Sensor de Umidade
+function lerUmidade() {
+    // Sorteia um número de umidade entre 10% e 90%
+    const umidadeAleatoria = Math.floor(Math.random() * 80) + 10;
+    
+    // Captura o elemento HTML onde o texto vai mudar
+    const textoUmidade = document.getElementById("status-umidade");
+    const textoValvula = document.getElementById("status-valvula");
+
+    // Altera o texto com o valor sorteado
+    textoUmidade.innerText = umidadeAleatoria + "%";
+
+    // Lógica de Inteligência do Robô:
+    // Se a umidade for menor que 40%, o solo está seco e liga a irrigação automaticamente
+    if (umidadeAleatoria < 40) {
+        textoUmidade.className = "perigo"; // Fica vermelho/alerta
+        textoValvula.innerText = "LIGADA (Automatizado - Solo Seco)";
+        textoValvula.className = "ativado"; // Fica verde
+    } else {
+        textoUmidade.className = "sucesso"; // Fica verde/ideal
+        textoValvula.innerText = "DESLIGADA (Solo Úmido)";
+        textoValvula.className = "desativado"; // Fica cinza/vermelho
+    }
+}
+
+// Função para permitir o controle manual da Irrigação
+function alternarIrrigacao() {
+    const textoValvula = document.getElementById("status-valvula");
+
+    // Verifica se está desligado para ligar, ou vice-versa
+    if (textoValvula.innerText.includes("DESLIGADA") || textoValvula.innerText.includes("Desligada")) {
+        textoValvula.innerText = "LIGADA (Modo Manual)";
+        textoValvula.className = "ativado";
+    } else {
+        textoValvula.innerText = "DESLIGADA (Modo Manual)";
+        textoValvula.className = "desativado";
+    }
+}
